@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <link rel="icon" type="image/png" href="logo.png.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم محمد الشرقاوي | المنيو الكامل والطلب أونلاين</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { height: 8px; width: 8px; }
+        ::-webkit-scrollbar-thumb { background: #f97316; border-radius: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+            color: #ffffff !important;
+            border-color: #fb923c !important;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+        }
+
+        /* حركة الشريط المتحرك */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- شريط متحرك علوي للحالة والجودة -->
+    <div class="bg-orange-600 text-white text-xs font-bold py-2 overflow-hidden whitespace-nowrap shadow-md">
+        <div class="animate-marquee">
+            🔥 أهلاً بكم في مطعم محمد الشرقاوي | اللحوم والكبدة والمخ بلدي فريش 100% يومياً || اطلب الآن أونلاين واستمتع بألذ الأكل في مدينة نصر!
+        </div>
+    </div>
+
+    <!-- الهيدر واللوجو ومواقع التواصل -->
+    <header class="sticky top-0 z-40 bg-[#111827]/95 backdrop-blur-md border-b border-orange-500/20 shadow-xl">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center font-black text-2xl text-white shadow-lg border border-orange-400/30">
+             <img src="logo.png.jpg" alt="لوجو محمد الشرقاوي" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400 shadow-lg">
+                </div>
+                <div>
+                    <h1 class="text-lg font-black text-orange-500 leading-tight">محمد الشرقاوي</h1>
+                    <p class="text-xs text-gray-400 font-semibold">كبده ومخ ومشويات</p>
+                </div>
+            </div>
+
+            <!-- وسائل التواصل وزر السلة -->
+            <div class="flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-2.5 text-orange-500 text-lg">
+                    <a href="https://www.facebook.com/share/1FJcGKsR88/?mibextid=wwXIfr" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="https://www.instagram.com/kebda_mohamed.elsharkawy?dlrf=eWliZmV5d3dmc3hw" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-tiktok text-sm"></i></a>
+                </div>
+
+                <button onclick="toggleCart()" class="relative bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-lg transition flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span>السلة</span>
+                    <span id="cart-count" class="bg-gray-900 text-orange-400 font-black px-2 py-0.5 rounded-full text-xs shadow-inner">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- العنوان البارز في أول الصفحة (قابل للضغط ليفتح اللوكيشن) -->
+    <a href="https://maps.google.com/?q=11+يوسف+عباس+مدينة+نصر" target="_blank" class="block bg-orange-600/10 hover:bg-orange-600/20 border-b border-orange-500/20 py-2.5 px-4 text-center transition group">
+        <p class="text-xs md:text-sm font-black text-orange-400 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-location-dot group-hover:scale-125 transition"></i> 
+            <span>العنوان: مدينة نصر - 11 يوسف عباس - أمام الاستاد بجوار ماكس ماصل</span>
+            <span class="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold">اضغط لفتح الخريطة 🗺️</span>
+        </p>
+    </a>
+
+    <!-- البانر الرئيسي -->
+    <section class="relative bg-gradient-to-b from-orange-950/20 via-[#0b0f19] to-[#0b0f19] py-8 px-4 text-center border-b border-gray-800">
+        <div class="max-w-3xl mx-auto">
+            <span class="bg-orange-500/10 text-orange-400 border border-orange-500/30 text-xs md:text-sm px-4 py-1.5 rounded-full font-bold inline-block mb-3 shadow-sm">
+                🔥 جميع الأسعار شاملة العيش والسلطات والطحينة
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-2">
+                منيو <span class="text-orange-500">محمد الشرقاوي</span>
+            </h2>
+            <p class="text-gray-400 text-sm md:text-base font-medium mb-6">
+                              احلي كبدة في مصر
+            </p>
+        </div>
+
+        <!-- شريط الأقسام التفاعلي (Tabs Banner) -->
+        <div class="max-w-5xl mx-auto flex overflow-x-auto gap-2 pb-2 px-2 justify-start md:justify-center border-t border-gray-800/80 pt-4">
+            <button onclick="switchTab('offers')" id="tab-btn-offers" class="tab-btn active bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🎉 عروض الافتتاح</button>
+            <button onclick="switchTab('grills')" id="tab-btn-grills" class="tab-btn bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🍖 ركن المشويات</button>
+            <button onclick="switchTab('liver-brain')" id="tab-btn-liver-brain" class="tab-btn bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🥩 الكبدة والمخ</button>
+            <button onclick="switchTab('seafood')" id="tab-btn-seafood" class="tab-btn bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🍤 الجمبري والفيليه</button>
+            <button onclick="switchTab('sandwiches')" id="tab-btn-sandwiches" class="tab-btn bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🥪 الساندوتشات</button>
+            <button onclick="switchTab('extras')" id="tab-btn-extras" class="tab-btn bg-gray-900 border border-gray-800 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition">🍚 الإضافات والسلطات</button>
+        </div>
+    </section>
+
+    <!-- قائمة الطعام الشاملة (Sections) -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow">
+
+        <!-- 1. عروض الافتتاح -->
+        <section id="tab-offers" class="tab-content space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl font-black text-white">🎉 عروض خاصة بمناسبة الافتتاح</h3>
+                <p class="text-sm text-gray-400 font-semibold">وجبات متكاملة (أرز + سلطة + طحينة + كانز)</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة كبده</h4>
+                        <p class="text-xs text-gray-400 mb-4">كبده + أرز + سلطه وطحينه و 1 كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">90 ج.م</span>
+                        <button onclick="addToCart('وجبة كبده', 90)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة سمك فيليه</h4>
+                        <p class="text-xs text-gray-400 mb-4">فيليه + أرز + سلطه وطحينه و 1 كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">100 ج.م</span>
+                        <button onclick="addToCart('وجبة سمك فيليه', 100)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة جمبري وسط</h4>
+                        <p class="text-xs text-gray-400 mb-4">جمبري + أرز + سلطه وطحينه و 1 كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">150 ج.م</span>
+                        <button onclick="addToCart('وجبة جمبري وسط', 150)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة مشكل</h4>
+                        <p class="text-xs text-gray-400 mb-4">كبده + مخ + أرز + سلطه وطحينه و 1 كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">110 ج.م</span>
+                        <button onclick="addToCart('وجبة مشكل افتتاح', 110)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة اسكندراني</h4>
+                        <p class="text-xs text-gray-400 mb-4">اسكندراني + أرز + سلطه وطحينه و 1 كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">100 ج.م</span>
+                        <button onclick="addToCart('وجبة اسكندراني', 100)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة الصاروخ</h4>
+                        <p class="text-xs text-gray-400 mb-4">1/4 فراخ + 1/4 كفته + أرز + سلطه + طحينه + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">250 ج.م</span>
+                        <button onclick="addToCart('وجبة الصاروخ', 250)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة ربع فراخ + 2 قطعة كفتة</h4>
+                        <p class="text-xs text-gray-400 mb-4">أرز + سلطة + طحينة + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">150 ج.م</span>
+                        <button onclick="addToCart('وجبة ربع فراخ + كفتة', 150)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة كفتة (4 قطع)</h4>
+                        <p class="text-xs text-gray-400 mb-4">4 ق كفتة + أرز + عيش + سلطة + طحينة + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">110 ج.م</span>
+                        <button onclick="addToCart('وجبة كفتة 4 قطع', 110)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة ربع فراخ + ممبار</h4>
+                        <p class="text-xs text-gray-400 mb-4">أرز + طحينة + سلطة + عيش + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">150 ج.م</span>
+                        <button onclick="addToCart('وجبة ربع فراخ وممبار', 150)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة الأكيل</h4>
+                        <p class="text-xs text-gray-400 mb-4">1/4 فراخ + كبدة + ممبار + أرز + سلطة + طحينة + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">200 ج.م</span>
+                        <button onclick="addToCart('وجبة الأكيل', 200)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-bold text-lg text-white mb-1">وجبة التنوع</h4>
+                        <p class="text-xs text-gray-400 mb-4">1/8 كفتة + 1/8 كبدة + 1/8 ممبار + سلطة + طحينة + أرز + كانز</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-800">
+                        <span class="text-2xl font-black text-orange-400">150 ج.م</span>
+                        <button onclick="addToCart('وجبة التنوع', 150)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition shadow-md">+ أضف للسلة</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ركن المشويات -->
+        <section id="tab-grills" class="tab-content hidden space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl md:text-3xl font-black text-white">🍖 ركن المشويات والكفتة والطرب والممبار</h3>
+                <p class="text-sm text-gray-400 font-semibold">مشويات على الفحم بالأوزان والوجبات شاملة العيش والسلطات</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- 1. كفتة کندوز -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">كفتة كندوز بلدي</h4>
+                    <div class="space-y-3.5">
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">كيلو كفتة كندوز</span>
+                            <button onclick="addToCart('كيلو كفتة کندوز', 500)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>500 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">3/4 كيلو كفتة</span>
+                            <button onclick="addToCart('3/4 ك كفتة', 390)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>390 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/2 كيلو كفتة</span>
+                            <button onclick="addToCart('نص كيلو كفتة کندوز', 260)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>260 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/4 كيلو كفتة</span>
+                            <button onclick="addToCart('ربع كيلو كفتة کندوز', 135)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>135 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. ركن الطرب -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">ركن الطرب البلدي</h4>
+                    <div class="space-y-3.5">
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">كيلو طرب</span>
+                            <button onclick="addToCart('كيلو طرب', 600)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>600 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">3/4 كيلو طرب</span>
+                            <button onclick="addToCart('3/4 ك طرب', 460)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>460 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/2 كيلو طرب</span>
+                            <button onclick="addToCart('نص كيلو طرب', 420)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>420 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/4 كيلو طرب</span>
+                            <button onclick="addToCart('ربع كيلو طرب', 170)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>170 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. الفراخ المشوية -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">الفراخ المشوية</h4>
+                    <div class="space-y-3.5">
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">فرخة كاملة مشوية</span>
+                            <button onclick="addToCart('فرخة كاملة مشوية', 350)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>350 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/2 فرخة مشوية</span>
+                            <button onclick="addToCart('نص فرخة مشوية', 190)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>190 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/4 فرخة (صدر)</span>
+                            <button onclick="addToCart('ربع فرخة صدر', 110)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>110 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/4 فرخة (ورك)</span>
+                            <button onclick="addToCart('ربع فرخة ورك', 100)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>100 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. الممبار -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">الممبار الخلطة البلدي</h4>
+                    <div class="space-y-3.5">
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">كيلو ممبار</span>
+                            <button onclick="addToCart('1 ك ممبار', 300)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>300 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/2 كيلو ممبار</span>
+                            <button onclick="addToCart('نص ممبار', 160)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>160 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                        <div class="flex justify-between items-center py-3 px-4 bg-gray-900/80 rounded-2xl border border-gray-800">
+                            <span class="font-black text-white text-lg">1/4 كيلو ممبار</span>
+                            <button onclick="addToCart('ربع ممبار', 90)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-xl font-black text-sm shadow-lg transition flex items-center gap-2">
+                                <span>90 ج.م</span> <span class="bg-black/30 px-2 py-0.5 rounded text-xs">+ أضف</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. ركن الكبدة والمخ -->
+        <section id="tab-liver-brain" class="tab-content hidden space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl md:text-3xl font-black text-white">🥩 ركن الكبدة والمخ (بالأوزان الكاملة)</h3>
+                <p class="text-sm text-gray-400 font-semibold">تأتي جميع الطلبات شاملة العيش والسلطات الخضراء والطحينة</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- أطباق الكبدة -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">أصناف الكبدة (بلدي فريش)</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">كيلو كبده</span>
+                            <button onclick="addToCart('كيلو كبده', 450)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">450 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">3/4 كيلو كبده</span>
+                            <button onclick="addToCart('3/4 كيلو كبده', 350)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">350 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/2 كيلو كبده</span>
+                            <button onclick="addToCart('1/2 كيلو كبده', 230)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">230 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/3 كيلو كبده</span>
+                            <button onclick="addToCart('1/3 كيلو كبده', 170)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">170 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/4 كيلو كبده</span>
+                            <button onclick="addToCart('1/4 كيلو كبده', 120)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">120 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/8 كيلو كبده</span>
+                            <button onclick="addToCart('1/8 كيلو كبده', 65)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">65 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أطباق المخ -->
+                <div class="bg-[#111827] p-6 rounded-3xl border border-gray-800 shadow-xl">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-3 mb-4">أصناف المخ (مقرمش)</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">كيلو مخ</span>
+                            <button onclick="addToCart('كيلو مخ', 1000)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">1000 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">3/4 كيلو مخ</span>
+                            <button onclick="addToCart('3/4 كيلو مخ', 750)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">750 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/2 كيلو مخ</span>
+                            <button onclick="addToCart('1/2 كيلو مخ', 500)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">500 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/3 كيلو مخ</span>
+                            <button onclick="addToCart('1/3 كيلو مخ', 350)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">350 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/4 كيلو مخ</span>
+                            <button onclick="addToCart('1/4 كيلو مخ', 250)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">250 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/60 rounded-xl border border-gray-800">
+                            <span class="font-bold text-gray-200 text-base">1/8 كيلو مخ</span>
+                            <button onclick="addToCart('1/8 كيلو مخ', 130)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">130 ج <span class="bg-black/30 px-1.5 py-0.5 rounded">+ أضف</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. الجمبري والفيليه والمشكل -->
+        <section id="tab-seafood" class="tab-content hidden space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl md:text-3xl font-black text-white">🍤 ركن الجمبري والفيليه والمشكل</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- الجمبري -->
+                <div class="bg-[#111827] p-5 rounded-3xl border border-gray-800 shadow-xl space-y-3.5">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-2">ركن الجمبري</h4>
+                    <div class="space-y-3 text-base">
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">كيلو جمبري</span><button onclick="addToCart('كيلو جمبري', 1300)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">1300 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">3/4 كيلو جمبري</span><button onclick="addToCart('3/4 كيلو جمبري', 975)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">975 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/2 كيلو جمبري</span><button onclick="addToCart('1/2 كيلو جمبري', 650)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">650 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/3 كيلو جمبري</span><button onclick="addToCart('1/3 كيلو جمبري', 450)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">450 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/4 كيلو جمبري</span><button onclick="addToCart('1/4 كيلو جمبري', 325)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">325 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/8 كيلو جمبري</span><button onclick="addToCart('1/8 كيلو جمبري', 130)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">130 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                    </div>
+                </div>
+                <!-- الفيليه -->
+                <div class="bg-[#111827] p-5 rounded-3xl border border-gray-800 shadow-xl space-y-3.5">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-2">ركن الفيليه</h4>
+                    <div class="space-y-3 text-base">
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">كيلو فيليه</span><button onclick="addToCart('كيلو فيليه', 550)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">550 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">3/4 كيلو فيليه</span><button onclick="addToCart('3/4 كيلو فيليه', 415)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">415 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/2 كيلو فيليه</span><button onclick="addToCart('1/2 كيلو فيليه', 275)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">275 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/3 كيلو فيليه</span><button onclick="addToCart('1/3 كيلو فيليه', 200)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">200 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/4 كيلو فيليه</span><button onclick="addToCart('1/4 كيلو فيليه', 140)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">140 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/8 كيلو فيليه</span><button onclick="addToCart('1/8 كيلو فيليه', 72)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">72 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                    </div>
+                </div>
+                <!-- المشكل -->
+                <div class="bg-[#111827] p-5 rounded-3xl border border-gray-800 shadow-xl space-y-3.5">
+                    <h4 class="font-black text-xl text-orange-400 border-b border-gray-800 pb-2">ركن المشكل</h4>
+                    <div class="space-y-3 text-base">
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">كيلو مشكل</span><button onclick="addToCart('كيلو مشكل', 600)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">600 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">3/4 كيلو مشكل</span><button onclick="addToCart('3/4 كيلو مشكل', 480)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">480 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/2 كيلو مشكل</span><button onclick="addToCart('1/2 كيلو مشكل', 310)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">310 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/3 كيلو مشكل</span><button onclick="addToCart('1/3 كيلو مشكل', 225)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">225 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/4 كيلو مشكل</span><button onclick="addToCart('1/4 كيلو مشكل', 160)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">160 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                        <div class="flex justify-between items-center py-2 px-3 bg-gray-900/80 rounded-xl border border-gray-800"><span class="font-bold text-white">1/8 كيلو مشكل</span><button onclick="addToCart('1/8 كيلو مشكل', 85)" class="bg-orange-600 hover:bg-orange-700 text-white px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2">85 ج <span class="bg-black/30 px-1 rounded">+ أضف</span></button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ركن الساندوتشات -->
+        <section id="tab-sandwiches" class="tab-content hidden space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl md:text-3xl font-black text-white">🥪 ركن الساندوتشات (صغير / كبير)</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش كبدة</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش كبدة (صغير)', 30)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 30ج</button>
+                        <button onclick="addToCart('ساندوتش كبدة (كبير)', 60)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 60ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش مخ</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش مخ (صغير)', 60)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 60ج</button>
+                        <button onclick="addToCart('ساندوتش مخ (كبير)', 120)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 120ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش مشكل</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش مشكل (صغير)', 50)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 50ج</button>
+                        <button onclick="addToCart('ساندوتش مشكل (كبير)', 100)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 100ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش جمبري</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش جمبري (صغير)', 80)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 80ج</button>
+                        <button onclick="addToCart('ساندوتش جمبري (كبير)', 160)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 160ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش فيليه</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش فيليه (صغير)', 50)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 50ج</button>
+                        <button onclick="addToCart('ساندوتش فيليه (كبير)', 100)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 100ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش فراخ شيش</h4>
+                    <button onclick="addToCart('ساندوتش فراخ شيش', 60)" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-xl text-xs font-black transition">السعر: 60ج (+ أضف)</button>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش كفته</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش كفته (صغير)', 60)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 60ج</button>
+                        <button onclick="addToCart('ساندوتش كفته (كبير)', 120)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 120ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش الطرب</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('ساندوتش الطرب (صغير)', 80)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 80ج</button>
+                        <button onclick="addToCart('ساندوتش الطرب (كبير)', 150)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 150ج</button>
+                    </div>
+                </div>
+                <div class="bg-[#111827] p-5 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center">
+                    <h4 class="font-bold text-lg text-white">ساندوتش حواوشي كندوز</h4>
+                    <div class="flex gap-2">
+                        <button onclick="addToCart('حواوشي كندوز (صغير)', 60)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">صغير: 60ج</button>
+                        <button onclick="addToCart('حواوشي كندوز (كبير)', 99)" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-xl text-xs font-black transition">كبير: 99ج</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. الإضافات -->
+        <section id="tab-extras" class="tab-content hidden space-y-6">
+            <div class="border-r-4 border-orange-500 pr-3">
+                <h3 class="text-2xl md:text-3xl font-black text-white">🍚 ركن الإضافات والسلطات</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">طبق أرز كبير</span><button onclick="addToCart('طبق أرز كبير', 20)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">20 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">طبق أرز صغير</span><button onclick="addToCart('طبق أرز صغير', 15)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">15 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">سلطة كبدة</span><button onclick="addToCart('سلطة كبدة', 20)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">20 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">سلطة خضراء</span><button onclick="addToCart('سلطة خضراء', 15)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">15 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">طبق باذنجان</span><button onclick="addToCart('طبق باذنجان', 15)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">15 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">طبق مخلل</span><button onclick="addToCart('طبق مخلل', 15)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">15 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">كانز</span><button onclick="addToCart('كانز', 20)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">20 ج (+)</button>
+                </div>
+                <div class="bg-[#111827] p-4 rounded-2xl border border-gray-800 shadow-xl flex justify-between items-center text-sm">
+                    <span class="font-bold text-gray-200">طحينة</span><button onclick="addToCart('طحينة', 10)" class="bg-orange-600 text-white px-3 py-1 rounded-lg font-bold text-xs">10 ج (+)</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- الأزرار العائمة السريعة في الأسفل (الاتصال السريع + السلة) -->
+    <div class="sticky bottom-4 inset-x-4 max-w-xl mx-auto z-40 flex gap-3">
+        <!-- زر الاتصال الهاتفي العائم -->
+        <a href="tel:01128225373" class="bg-[#111827] border border-gray-800 hover:bg-orange-600 hover:text-white text-orange-400 p-4 rounded-2xl shadow-xl flex items-center justify-center gap-2 font-bold transition shrink-0 px-5" title="اتصل بنا الآن">
+            <i class="fa-solid fa-phone-volume text-xl animate-bounce"></i>
+            <span class="hidden sm:inline text-sm">اتصل بنا</span>
+        </a>
+
+        <!-- زر السلة العائم -->
+        <div onclick="toggleCart()" class="bg-gradient-to-r from-orange-600 to-amber-600 text-white p-4 rounded-2xl shadow-2xl flex justify-between items-center cursor-pointer hover:opacity-95 transition flex-grow">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span id="floating-cart-count" class="absolute -top-2 -right-2 bg-gray-900 text-orange-400 text-xs font-black w-6 h-6 rounded-full flex items-center justify-center shadow">0</span>
+                </div>
+                <span class="text-sm md:text-base font-bold">عرض سلة المشتريات</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="floating-cart-total" class="font-black text-base md:text-lg">0 ج.م</span>
+                <i class="fa-solid fa-chevron-left text-sm"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة سلة المشتريات والتأكيد (Cart Modal) -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex justify-center items-end md:items-center p-0 md:p-4">
+        <div class="bg-[#111827] border border-gray-800 w-full max-w-lg rounded-t-3xl md:rounded-3xl p-6 max-h-[90vh] flex flex-col justify-between shadow-2xl">
+            <!-- الهيدر -->
+            <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                <h3 class="text-lg font-bold text-orange-400 flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping"></i> سلة طلباتك (مطعم محمد الشرقاوي)
+                </h3>
+                <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- قائمة الأصناف في السلة -->
+            <div id="cart-items" class="py-4 space-y-4 overflow-y-auto max-h-60 flex-grow text-sm divide-y divide-gray-800">
+                <p class="text-center text-gray-500 text-xs py-8">السلة فارغة، أضف بعض الوجبات الشهية!</p>
+            </div>
+
+            <!-- معلومات التوصيل والتأكيد -->
+            <div class="border-t border-gray-800 pt-4 space-y-3">
+                <div class="flex justify-between items-center text-lg font-black">
+                    <span class="text-gray-300">إجمالي الطلب:</span>
+                    <span id="cart-total-price" class="text-orange-400">0 ج.م</span>
+                </div>
+
+                <!-- تنبيه التوصيل -->
+                <p class="text-[11px] text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-xl text-center">
+                    🛵 التوصيل بالخدمه متاح لكافة مناطق مدينة نصر والمحيط لضمان وصول الأكل ساخن وفي أسرع وقت!
+                </p>
+
+                <!-- مدخلات بيانات العميل والملاحظات -->
+                <div class="space-y-2 pt-1">
+                    <input type="text" id="cust-name" placeholder="الاسم بالكامل" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-orange-500 outline-none">
+                    <input type="text" id="cust-address" placeholder="عنوان التوصيل بالتفصيل (شارع، رقم العمارة، الدور)" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:border-orange-500 outline-none">
+                </div>
+
+                <!-- زر تأكيد الطلب إلكترونياً -->
+                <button onclick="submitOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-base transition shadow-lg flex justify-center items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> إرسال الطلب فوراً عبر الواتساب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر والعنوان والأرقام وحقوق الملكية -->
+    <footer class="bg-[#0e131f] border-t border-gray-800 py-8 px-4 text-center text-xs text-gray-400 mt-12 space-y-4">
+        <!-- روابط التواصل الاجتماعي في الفوتر -->
+        <div class="flex justify-center items-center gap-4 text-orange-400 text-xl pt-2">
+            <a href="https://www.facebook.com/share/1FJcGKsR88/?mibextid=wwXIfr" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-facebook-f text-base"></i></a>
+            <a href="https://www.instagram.com/kebda_mohamed.elsharkawy?dlrf=eWliZmV5d3dmc3hw" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-instagram text-base"></i></a>
+            <a href="https://tiktok.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-orange-600 hover:text-white flex items-center justify-center transition border border-gray-700 shadow"><i class="fa-brands fa-tiktok text-base"></i></a>
+        </div>
+        
+        <a href="https://maps.google.com/?q=11+يوسف+عباس+مدينة+نصر" target="_blank" class="inline-block font-bold text-orange-400 text-sm hover:underline">
+            📍العنوان: 11 يوسف عباس - أمام الاستاد بجوار ماكس ماصل (اضغط لفتح الخريطة)
+        </a>
+        <p class="text-gray-400 font-semibold">📞 أرقام التليفون: <a href="tel:01128225373" class="hover:text-orange-400">01128225373</a> - <a href="tel:01020282049" class="hover:text-orange-400">01020282049</a> - <a href="tel:01222618365" class="hover:text-orange-400">01222618365</a></p>
+        
+        <!-- حقوق الملكية الفكرية وتصميم الموقع -->
+        <div class="border-t border-gray-800/80 pt-3 mt-3">
+            <p class="text-gray-400 font-semibold text-[11px]">
+                جميع الحقوق محفوظة &copy; 2026 مطعم محمد الشرقاوي
+            </p>
+            <p class="text-orange-400 font-bold text-xs mt-1 tracking-wider">
+                Designed & Developed by ENG : MOHAMED GABER 🚀
+            </p>
+        </div>
+    </footer>
+
+    <!-- جافاسكريبت السلة والمنطق التفاعلي -->
+    <script>
+        let cart = [];
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            const targetSection = document.getElementById('tab-' + tabId);
+            const targetBtn = document.getElementById('tab-btn-' + tabId);
+
+            if (targetSection) targetSection.classList.remove('hidden');
+            if (targetBtn) targetBtn.classList.add('active');
+        }
+
+        function addToCart(name, price) {
+            const item = cart.find(i => i.name === name);
+            if (item) {
+                item.qty++;
+            } else {
+                cart.push({ name, price, qty: 1, note: '' });
+            }
+            updateCartUI();
+        }
+
+        function changeQty(name, delta) {
+            const item = cart.find(i => i.name === name);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.name !== name);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateItemNote(name, noteText) {
+            const item = cart.find(i => i.name === name);
+            if (item) {
+                item.note = noteText;
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const floatingCartCount = document.getElementById('floating-cart-count');
+            const cartTotalPrice = document.getElementById('cart-total-price');
+            const floatingCartTotal = document.getElementById('floating-cart-total');
+
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p class="text-center text-gray-500 text-xs py-8">السلة فارغة، أضف بعض الوجبات الشهية!</p>`;
+            } else {
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.qty;
+                    totalQty += item.qty;
+                    totalPrice += itemTotal;
+
+                    cartItemsContainer.innerHTML += `
+                        <div class="space-y-2 pt-2">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h5 class="font-bold text-white text-sm">${item.name}</h5>
+                                    <span class="text-orange-400 font-bold text-xs">${item.price} ج × ${item.qty} = ${itemTotal} ج</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-gray-800 rounded-lg px-2 py-1 text-xs">
+                                    <button onclick="changeQty('${item.name}', -1)" class="text-gray-400 hover:text-white px-1 font-bold">-</button>
+                                    <span class="font-bold px-1">${item.qty}</span>
+                                    <button onclick="changeQty('${item.name}', 1)" class="text-orange-400 hover:text-orange-300 px-1 font-bold">+</button>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="text" placeholder="ملاحظة للطلب (مثال: بدون طحينة، حار...)" value="${item.note || ''}" oninput="updateItemNote('${item.name}', this.value)" class="w-full bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-xs text-gray-300 focus:border-orange-500 outline-none">
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            cartCount.innerText = totalQty;
+            floatingCartCount.innerText = totalQty;
+            cartTotalPrice.innerText = totalPrice + ' ج.م';
+            floatingCartTotal.innerText = totalPrice + ' ج.م';
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function submitOrder() {
+            if (cart.length === 0) {
+                alert('السلة فارغة! الرجاء إضافة أصناف أولاً.');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !address) {
+                alert('الرجاء كتابة الاسم وعنوان التوصيل لتأكيد الطلب.');
+                return;
+            }
+
+            let msg = `*طلب جديد من موقع مطعم محمد الشرقاوي* 🛒\n\n`;
+            msg += `*اسم العميل:* ${name}\n`;
+            msg += `*العنوان:* ${address}\n\n`;
+            msg += `*تفاصيل الأصناف والأوزان:*\n`;
+
+            let grandTotal = 0;
+            cart.forEach(item => {
+                const subTotal = item.price * item.qty;
+                grandTotal += subTotal;
+                msg += `• ${item.name} (العدد: ${item.qty}) -> ${subTotal} جنيه`;
+                if (item.note) {
+                    msg += `\n  *(ملاحظة: ${item.note})*`;
+                }
+                msg += `\n`;
+            });
+
+            msg += `\n*الإجمالي الكلي:* ${grandTotal} جنيه مصري`;
+
+            const phone = "201020282049";
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
